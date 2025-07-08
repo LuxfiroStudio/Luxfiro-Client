@@ -54,15 +54,6 @@ input::-webkit-inner-spin-button {
     -webkit-app-region: no-drag;
     display: none;
 }
-#backgroundVideo {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -9999;        /* Siempre atrás */
-  pointer-events: none;  /* Ignora clics y eventos */
-}
 
 .other .frame {
     background: transparent;
@@ -123,11 +114,11 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
-.darwin-icon-minimize:before {
+.darwin-icon-maximize:before {
     background: #07d014;
 }
 
-.darwin-icon-maximize:before {
+.darwin-icon-minimize:before {
     background: #ffbd2e;
 }
 

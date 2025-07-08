@@ -1,5 +1,5 @@
 /**
- * @author Darken
+ * @author Luuxis
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
  */
 
@@ -9,7 +9,7 @@ const convert = require('xml-js');
 let url = pkg.user ? `${pkg.url}/${pkg.user}` : pkg.url
 
 let config = `${url}/launcher/config-launcher/config.json`;
-let news = `${url}/launcher/news/news.json`;
+let news = `${url}/launcher/news-launcher/news.json`;
 
 class Config {
     GetConfig() {
