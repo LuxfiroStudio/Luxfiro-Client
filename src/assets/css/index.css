@@ -1,32 +1,35 @@
 @import "font.css";
 @import "theme.css";
 
-/* ========== GLOBAL STYLES ========== */
+/* ================= GLOBAL ================= */
 body {
-    background-color: var(--background);
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0;
     margin: 0;
     padding: 0;
+    background: linear-gradient(145deg, #121212, #1f1f1f);
+    font-family: 'Poppins', sans-serif;
+    color: var(--color);
     overflow: hidden;
+    user-select: none;
 }
 
+/* ================= IMAGENES ================= */
 img {
     -webkit-user-drag: none;
     user-select: none;
     pointer-events: none;
 }
 
-/* ========== SPLASH LOGO ========== */
+/* ================= SPLASH LOGO ================= */
 .splash {
     position: absolute;
     top: 180px;
     left: 50%;
     transform: translateX(-50%);
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     opacity: 0;
-    transition: opacity 0.3s ease, top 1.5s ease;
+    filter: drop-shadow(0 0 20px var(--element-color));
+    transition: opacity 0.3s ease, top 1.2s ease;
 }
 
 .splash.opacity {
@@ -34,110 +37,87 @@ img {
 }
 
 .splash.translate {
-    top: 129px;
+    top: 130px;
 }
 
-/* ========== SPLASH MESSAGE ========== */
+/* ================= TEXTO DE SPLASH ================= */
+.splash-message, .splash-author, .message {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
 .splash-message {
-    position: absolute;
-    top: 289px;
-    left: 0;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    font-weight: bold;
-    font-size: 19px;
-    line-height: 29px;
-    text-align: center;
-    color: var(--color);
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    top: 295px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #eeeeee;
 }
 
-.splash-message.opacity {
-    opacity: 1;
-}
-
-/* ========== AUTHOR LINE ========== */
 .splash-author {
-    position: absolute;
-    top: 326px;
-    left: 0;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    font-size: 9px;
-    line-height: 13px;
-    text-align: center;
-    color: var(--color);
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    top: 325px;
+    font-size: 10px;
+    color: #bbbbbb;
 }
 
 .splash-author .author {
     font-weight: bold;
+    color: var(--element-color);
 }
 
-.splash-author.opacity {
-    opacity: 1;
-}
-
-/* ========== INFO MESSAGE ========== */
 .message {
-    position: absolute;
-    top: 347px;
-    left: 0;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    font-size: 18px;
+    top: 355px;
+    font-size: 17px;
     font-weight: bold;
-    line-height: 27px;
-    text-align: center;
-    color: var(--color);
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    color: #cccccc;
 }
 
+.splash-message.opacity,
+.splash-author.opacity,
 .message.opacity {
     opacity: 1;
 }
 
-/* ========== UPDATE BUTTON ========== */
+/* ================= BOTÓN ACTUALIZAR ================= */
 .download-update {
     position: absolute;
+    top: 400px;
     left: 50%;
     transform: translateX(-50%);
-    top: 390px;
-    width: 200px;
-    padding: 8px 0;
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--color);
-    text-align: center;
-    border: 2px solid var(--color);
-    border-radius: 15px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: 600;
     background-color: transparent;
+    border: 2px solid var(--element-color);
+    color: var(--element-color);
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .download-update:hover {
-    background-color: var(--color);
-    color: var(--background);
+    background-color: var(--element-color);
+    color: #1f1f1f;
+    box-shadow: 0 0 10px var(--element-color);
 }
 
-/* ========== PROGRESS BAR ========== */
+/* ================= PROGRESS BAR ================= */
 .progress {
     position: absolute;
-    top: 450px;
+    top: 455px;
     left: 50%;
     transform: translateX(-50%);
-    width: 189px;
-    height: 10px;
-    opacity: 0;
+    width: 200px;
+    height: 12px;
+    border-radius: 6px;
     appearance: none;
-    transition: opacity 0.2s ease;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .progress.show {
@@ -145,12 +125,12 @@ img {
 }
 
 .progress::-webkit-progress-bar {
-    background-color: var(--background);
-    border: 1px solid var(--element-color);
+    background-color: #2e2e2e;
     border-radius: 10px;
 }
 
 .progress::-webkit-progress-value {
     background-color: var(--element-color);
     border-radius: 10px;
+    transition: width 0.3s ease;
 }
