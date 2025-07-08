@@ -5,6 +5,7 @@
 
 'use strict';
 
+/* === SLIDER DE RANGO (NO TOCAR) === */
 export default class Slider {
     constructor(id, minValue, maxValue) {
         this.startX = 0;
@@ -150,5 +151,41 @@ export default class Slider {
 
     emit(name, ...args) {
         if (this.func[name]) this.func[name](...args);
+    }
+}
+
+/* === SISTEMA DE INSTANCIAS DESDE WEBHOST === */
+export async function loadInstances() {
+    const container = document.querySelector('.instances');
+    if (!container) return console.error("No existe el contenedor .instances en tu HTML");
+
+    container.innerHTML = '<p>Cargando instancias...</p>';
+
+    try {
+        const response = await fetch('https://102.129.137.163:5003/main/files/instances/instances.json');  // Cambia esta URL por la tuya
+        const instances = await response.json();
+
+        container.innerHTML = '';
+
+        instances.forEach(instance => {
+            const item = document.createElement('div');
+            item.className = 'instance-item';
+            item.innerHTML = `
+                <h2>${instance.name}</h2>
+                <p>${instance.description}</p>
+                <span>Versión: ${instance.version}</span>
+            `;
+
+            item.addEventListener('click', () => {
+                console.log(`Instancia seleccionada: ${instance.path}`);
+                // Aquí puedes poner tu lógica para cambiar de instancia.
+            });
+
+            container.appendChild(item);
+        });
+
+    } catch (error) {
+        console.error('Error al obtener las instancias:', error);
+        container.innerHTML = '<p>Error al cargar las instancias.</p>';
     }
 }

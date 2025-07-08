@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
         <link rel="stylesheet" href="assets/css/launcher.css">
     </head>
+                <div id="videoContainer" class="background-video" style="display:inline-block"></div>
     <body>
         <div class="dragbar"></div>
         <div class="darwin">
@@ -33,4 +34,56 @@
         <div class="panels"></div>
         <script src="assets/js/launcher.js" type="module"></script>
     </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Launcher con fondo dinámico</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    overflow: hidden;
+  }
+  #backgroundVideo {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+
+<video id="backgroundVideo" autoplay muted loop playsinline></video>
+
+<script>
+  // Supongamos que tienes una variable con el nombre de la instancia
+  // En tu app esto puede venir de selección de usuario, sesión, etc.
+  const currentInstance = "Betatest";  // ejemplo fijo
+
+  // Función para cargar el fondo según instancia
+  async function loadBackground() {
+    try {
+      const res = await fetch('/instances.json');  // URL donde tu PHP devuelve el JSON con instancias
+      const data = await res.json();
+
+      if (data[currentInstance] && data[currentInstance].background_url) {
+        const video = document.getElementById('backgroundVideo');
+        video.src = data[currentInstance].background_url;
+        video.load();
+        video.play();
+      } else {
+        console.error("No se encontró video para la instancia: ", currentInstance);
+      }
+    } catch (e) {
+      console.error("Error cargando JSON de instancias: ", e);
+    }
+  }
+
+  loadBackground();
+</script>
+
+</body>
 </html>
+

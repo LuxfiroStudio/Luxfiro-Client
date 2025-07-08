@@ -1,5 +1,5 @@
 /**
- * @author Darken
+ * @author Luuxis
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
  */
 
@@ -30,10 +30,9 @@ class Splash {
 
     async startAnimation() {
         let splashes = [
-            { "message": "Lebiu Studio On Top", "author": "Darken" },
-            { "message": "LewSafio 3!", "author": "Darken" },
-            { "message": "Optimizen MINECRAFT JAVA!!", "author": "Darken" },
-            { "message": "Zephyhosting.com", "author": "Darken" }
+            { "message": "Je... vie...", "author": "Luuxis" },
+            { "message": "Salut je suis du code.", "author": "Luuxis" },
+            { "message": "Linux n'est pas un os, mais un kernel.", "author": "Luuxis" }
         ];
         let splash = splashes[Math.floor(Math.random() * splashes.length)];
         this.splashMessage.textContent = splash.message;
@@ -52,14 +51,14 @@ class Splash {
     }
 
     async checkUpdate() {
-        this.setStatus(`Buscando actualizaciones...`);
+        this.setStatus(`Recherche de mise à jour...`);
 
         ipcRenderer.invoke('update-app').then().catch(err => {
-            return this.shutdown(`Error al buscar actualizaciones :<br>${err.message}`);
+            return this.shutdown(`erreur lors de la recherche de mise à jour :<br>${err.message}`);
         });
 
         ipcRenderer.on('updateAvailable', () => {
-            this.setStatus(`Actualización disponible !`);
+            this.setStatus(`Mise à jour disponible !`);
             if (os.platform() == 'win32') {
                 this.toggleProgress();
                 ipcRenderer.send('start-update');
@@ -77,7 +76,7 @@ class Splash {
         })
 
         ipcRenderer.on('update-not-available', () => {
-            console.error("Actualización no disponible");
+            console.error("Mise à jour non disponible");
             this.maintenanceCheck();
         })
     }
@@ -106,10 +105,10 @@ class Splash {
         else if (os == 'linux') latest = this.getLatestReleaseForOS('linux', '.appimage', latestRelease);
 
 
-        this.setStatus(`Actualización disponible !<br><div class="download-update">Descargar</div>`);
+        this.setStatus(`Mise à jour disponible !<br><div class="download-update">Télécharger</div>`);
         document.querySelector(".download-update").addEventListener("click", () => {
             shell.openExternal(latest.browser_download_url);
-            return this.shutdown("Descarga en progreso...");
+            return this.shutdown("Téléchargement en cours...");
         });
     }
 
@@ -120,21 +119,21 @@ class Splash {
             this.startLauncher();
         }).catch(e => {
             console.error(e);
-            return this.shutdown("No se detectó conexión a Internet,<br>Inténtelo de nuevo más tarde.");
+            return this.shutdown("Aucune connexion internet détectée,<br>veuillez réessayer ultérieurement.");
         })
     }
 
     startLauncher() {
-        this.setStatus(`Iniciando el launcher`);
+        this.setStatus(`Démarrage du launcher`);
         ipcRenderer.send('main-window-open');
         ipcRenderer.send('update-window-close');
     }
 
     shutdown(text) {
-        this.setStatus(`${text}<br>Saliendo en 5s`);
+        this.setStatus(`${text}<br>Arrêt dans 5s`);
         let i = 4;
         setInterval(() => {
-            this.setStatus(`${text}<br>Saliendo ${i--}s`);
+            this.setStatus(`${text}<br>Arrêt dans ${i--}s`);
             if (i < 0) ipcRenderer.send('update-window-close');
         }, 1000);
     }
@@ -163,3 +162,117 @@ document.addEventListener("keydown", (e) => {
     }
 })
 new Splash();
+async function cargarInstancias() {
+  const instanciaSelect = document.getElementById("instance-select"); // agrega este select en el HTML
+  const contenedor = document.getElementById("background-container");
+
+  try {
+    const res = await fetch("http://102.129.137.163:5003/main/files/php/instances.php");
+    const instancias = await res.json();
+
+    for (const nombre in instancias) {
+      const option = document.createElement("option");
+      option.value = nombre;
+      option.textContent = nombre;
+      instanciaSelect.appendChild(option);
+    }
+
+    instanciaSelect.addEventListener("change", () => {
+      const nombre = instanciaSelect.value;
+      const fondo = instancias[nombre].background_url;
+
+      if (fondo.endsWith(".mp4")) {
+        contenedor.innerHTML = `
+          <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+            <source src="${fondo}" type="video/mp4">
+          </video>
+        `;
+      } else {
+        contenedor.innerHTML = "";
+        contenedor.style.background = `url('${fondo}') center/cover no-repeat`;
+      }
+    });
+
+    instanciaSelect.dispatchEvent(new Event("change")); // fondo inicial
+  } catch (e) {
+    console.error("Error al cargar instancias:", e);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", cargarInstancias);
+const INSTANCE_API = "http://102.129.137.163:5003/main/files/php/instances.php";
+let instancias = {};
+let instanciaSeleccionada = null;
+
+async function cargarInstancias() {
+  const selector = document.getElementById("instance-select");
+  const contenedor = document.getElementById("background-container");
+
+  try {
+    const res = await fetch(INSTANCE_API);
+    instancias = await res.json();
+
+    for (const nombre in instancias) {
+      const option = document.createElement("option");
+      option.value = nombre;
+      option.textContent = nombre;
+      selector.appendChild(option);
+    }
+
+    selector.addEventListener("change", () => {
+      instanciaSeleccionada = instancias[selector.value];
+      cambiarFondo(instanciaSeleccionada.background_url);
+    });
+
+    // Selección inicial
+    selector.dispatchEvent(new Event("change"));
+  } catch (err) {
+    console.error("Error al cargar instancias:", err);
+  }
+}
+
+function cambiarFondo(url) {
+  const contenedor = document.getElementById("background-container");
+
+  if (url.endsWith(".mp4")) {
+    contenedor.innerHTML = `
+      <video autoplay muted loop playsinline style="position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;">
+        <source src="${url}" type="video/mp4">
+      </video>
+      <div class="overlay">
+        <select id="instance-select"></select>
+        <button id="launch-button">Jugar</button>
+      </div>
+    `;
+  } else {
+    contenedor.style.background = `url('${url}') center/cover no-repeat`;
+  }
+}
+
+// Lanza el juego usando la instancia seleccionada
+document.getElementById("launch-button").addEventListener("click", () => {
+  if (!instanciaSeleccionada) {
+    alert("Selecciona una instancia");
+    return;
+  }
+
+  const instanceOptions = {
+    name: instanciaSeleccionada.status.nameServer,
+    gameDirectory: `./.minecraft/${instanciaSeleccionada.status.nameServer}`,
+    minecraftVersion: instanciaSeleccionada.loadder.minecraft_version,
+    loader: {
+      type: instanciaSeleccionada.loadder.loadder_type,
+      version: instanciaSeleccionada.loadder.loadder_version
+    },
+    javaPath: "", // ruta al Java si aplica
+    memory: {
+      min: 2048,
+      max: 4096
+    }
+  };
+
+  // Aquí se llama la función de lanzamiento real del launcher
+  require('../utils/Launcher').launch(instanceOptions);
+});
+
+window.addEventListener("DOMContentLoaded", cargarInstancias);

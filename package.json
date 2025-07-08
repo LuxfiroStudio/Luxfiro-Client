@@ -7,7 +7,7 @@
     "author": {
         "name": "LilSofia Dev"
     },
-    "url": "http://141.11.34.146:1268/main",
+    "url": "http://102.129.137.163:5003/main/",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",

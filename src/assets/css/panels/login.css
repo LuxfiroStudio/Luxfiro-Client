@@ -2,16 +2,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
+    background: radial-gradient(circle at center, #0f0f0f 0%, #050505 100%);
+    overflow: hidden;
 }
 
 .login-tabs {
-    position: absolute;
-    padding: 15px;
-    background: var(--background);
-    border-radius: 15px;
+    position: relative;
+    padding: 2.5rem;
+    background: rgba(10, 10, 10, 0.7);
+    border: 2px solid #00ffaa;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
     text-align: center;
-    min-width: 40%;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 0 30px #00ffaa60, 0 0 10px #00ffaa20 inset;
+    animation: fadeIn 0.5s ease-out forwards;
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .login-home,
@@ -22,34 +38,59 @@
 }
 
 .login-text {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+    color: #00ffaa;
+    font-weight: bold;
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 10px #00ffaa80;
 }
 
 .connect,
 .cancel {
-    background: none;
-    color: var(--color);
-    border: solid 4px var(--element-color);
-    border-radius: 10px;
-    padding: 0.3rem 4rem;
-    font-size: inherit;
-    font-weight: bold;
-    margin: 15px 10px;
+    background: linear-gradient(90deg, #00ffaa 0%, #00ddff 100%);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 0.6rem 2.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0.8rem 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00ffaa80;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.connect:hover,
+.cancel:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ffaa;
 }
 
 .input-login .email,
 .input-login .password,
 .A2F {
-    color: var(--color);
-    background: none;
-    border: solid 2px var(--element-color);
+    color: #00ffaa;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #00ffaa;
     border-radius: 30px;
-    width: 50%;
-    padding: 0.4rem 1rem;
-    margin-top: 10px;
+    width: 80%;
+    max-width: 400px;
+    padding: 0.6rem 1.2rem;
+    margin: 0.6rem auto;
+    display: block;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 8px #00ffaa40 inset;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-login .email:focus,
+.input-login .password:focus,
+.A2F:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 12px #00ffaa;
+}
 
 .login-select {
     display: none;
- }
-        
 }

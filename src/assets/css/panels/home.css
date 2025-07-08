@@ -1,75 +1,68 @@
+#background-layer {
+  position: fixed;
+  top: 0; left: 60;
+  width: 100vw; height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1; /* Para que quede detrás de todo */
+}
 .home .container {
     display: flex;
     height: 100%;
     flex-direction: column;
     align-items: center;
 }
+#backgroundVideo {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -9999;        /* Siempre atrás */
+  pointer-events: none;  /* Ignora clics y eventos */
+}
+
 
 /*******************************************************************************
  *                                                                             *
  * Status server                                                               *
  *                                                                             *
  ******************************************************************************/
-
+@font-face {
+    font-family: 'Minecraft';
+    src: url('fonts/Minecraft.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 .status-server {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--background);
-    width: 25rem;
-    height: 3rem;
+    font-size: 0.1rem;
+    width: 75rem;
+    height: 10rem;
     color: var(--color);
-    border-radius: 10px;
-    margin-top: 3rem;
+    border-radius: 6px;
+    margin-top: 1rem;
     padding: 1rem;
-    text-align: center;
+    font-family: 'Minecraftia', monospace;
+    font-size: 0.25rem;
 }
 
 .server-status-icon {
     height: 3.3rem;
 }
-
+.text-top {
+  font-size: 1rem;
+  color: var(--color); /* o el color que quieras */
+}
 .server-status-name {
-    font-size: 1.5rem;
+    font-size: 1.0rem;
+  top: 50%;
+  left: -150%;
     color: var(--color);
-}
-
-.server-status-text {
-    font-size: 0.6rem;
-    color: #1AC707;
-}
-
-.server-status-infos .red {
-    color: #FF0409;
-}
-
-.status-player-count {
-    background: var(--shadow);
-    min-width: 3rem;
-    height: 3rem;
-    border-radius: 10px;
 }
 
 .player-count {
     font-size: 1.5rem;
     margin: 0.4rem 0.5rem;
-}
-
-.status-player-count:after {
-    position: absolute;
-    content: '';
-    width: 10px;
-    height: 10px;
-    top: 10px;
-    right: 10px;
-    border-radius: 15px;
-    border: solid 5px var(--background);
-    background: #1AC707;
-}
-
-.red:after {
-    background: #FF0409;
 }
 
 .home-bottom {
@@ -85,126 +78,12 @@
  *                                                                             *
  ******************************************************************************/
 
-.new-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 85%;
-    height: 100%;
-    margin-left: 7%;
-}
-
-.titre-tab-new {
-    margin-top: 1rem;   
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    background: var(--background-transparent);
-    color: var(--color);
-}
-
-.news-list {
-    width: 90%;
-    height: 100%;
-    border-radius: 10px;
-    margin: 1rem 0;
-}
-
-.news-block {
-    width: 100%;
-    margin: 0 0 1rem 0;
-    border-radius: 10px;
-    background: var(--background-transparent);
-}
-
-.news-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    align-items: center;
-}
-
-.header-text .title {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.news-header .date {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.news-content .bbWrapper {
-    padding: 0 1.5rem;
-    padding-bottom: 1rem;
-    font-size: 1.2rem;
-
-}
-
-.news-content .bbWrapper p {
-    font-weight: 100;
-    margin: 0;
-
-}
-
-.news-content .bbWrapper .news-author {
-    margin-top: 1rem;
-    text-align: end;
-    font-size: 0.8rem;
-}
-
-.news-content .bbWrapper .news-author span {
-    font-weight: 700;
-}
 
 /*******************************************************************************
  *                                                                             *
  * social server                                                               *
  *                                                                             *
  ******************************************************************************/
-
-.social-tab {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    left: -50px; 
-    bottom: 50px; 
-    width: 15%;
-    height: calc(80% - 1rem);
-    justify-content: center;
-    margin-bottom: 1rem;
-    z-index: 10; /* Más arriba que la sidebar */
-    pointer-events: auto;
-}
-.social-list {
-    border-radius: 10px;
-    height: 100%;
-}
-
-.social-block {
-    display: flex;
-    background: transparent;
-    width: 90px;
-    height: 90px;
-    margin-bottom: 3rem;
-    border-radius: 10px;
-    font-size: 2rem;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    gap: 40%; 
-}
-
-.social-block .icon-social {
-    pointer-events: none;
-    background-repeat: no-repeat;
-    height: 55%;
-    width: 55%;
-    filter: var(--svg-color);
-}
 
 
 /*******************************************************************************
@@ -215,16 +94,11 @@
 
 .sidebar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 90px;
-    height: 100vh;
-    background: var(--background-transparent);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Barra lateral detrás */
+    width: 100%;
+    height: 90px;
+    background: #202020d5
 }
 
 .player-options {
@@ -237,36 +111,14 @@
 }
 
 .player-head {
-  position: relative;
-  height: 3rem;
-  width: 3rem;
-  margin-top: 10px;
-  border-radius: 50%;
-  pointer-events: none;
-  background-color: #000; /* Agrega un color de fondo para que se vea algo si la imagen no carga */
-  background-image: url('../../images/default/setve.png'); /* Usa background-image en lugar de background */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  image-rendering: pixelated;
-  /* Degradado y máscara */
-  background-clip: padding-box; /* Importante para que el degradado no afecte el borde */
-  border: 5px solid transparent; /* Crea un borde transparente para que se vea el degradado */
-  background-origin: border-box;
-  background-image: linear-gradient(to right, #4a8fe7, #2e64fe), url('../../images/default/setve.png'); /* Aplica el degradado y la imagen */
-  background-size: cover, cover;
-  background-position: center center, center center;
-  background-repeat: no-repeat, no-repeat;
-  animation: nebula 5s linear infinite;
-}
-
-@keyframes nebula {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    background: url('../../images/default/setve.png'), no-repeat;
+    background-size: cover;
+    image-rendering: pixelated;
+    transition: var(--transition);
+    height: 3rem;
+    width: 3rem;
+    pointer-events: none;
+    border-radius: 15px;
 }
 
 .player-menu {
@@ -279,88 +131,121 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute; 
-    bottom: 20px;
-    left: 48%;
-    transform: translateX(-50%);
-    width: 100%;
 }
-
 
 .play-instance {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border: solid 3px var(--element-color);
     border-radius: 15px;
     height: 3.2rem;
     padding-right: 1.9rem;
 }
-.play-btn-container {
-    position: fixed;
-    bottom: 20px; 
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10; 
+@font-face {
+  font-family: 'Mojangles';
+  src: url('https://fonts.cdnfonts.com/s/14473/Minecraftia.woff') format('woff');
 }
-
 .play-btn {
-  position: relative;
-  background: linear-gradient(to bottom, #4a8fe7, #2e64fe);
-  color: white;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.2em;
-  cursor: pointer;
-  overflow: hidden;
-  width: 200px
+  font-family: 'Minecraftia', monospace;
+  font-size: 1.3rem;
+  width: 230px;
   
-}
-.play-btn::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(74, 143, 231, 0),
-    rgba(74, 143, 231, 0.5),
-    rgba(74, 143, 231, 0)
-  );
-  animation: nebula 5s linear infinite;
+  height: 100%;
+  text-transform: uppercase;
+  color: white;
+  background-color: #c41117;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 32px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #e25d61;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  user-select: none;
+  pointer-events: auto;
+  overflow: hidden;
 }
 
-@keyframes nebula {
+/* Animación de luz al hacer hover */
+.play-btn::before {
+  content: server-status-name;
+  position: absolute;
+  top: -100%;
+  left: -50%;
+  width: 380%;
+  height: 270%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  animation: none;
+  pointer-events: none;
+}
+
+/* Hover con animación de resplandor */
+.play-btn:hover {
+  background-color: #ff7b7f;
+  box-shadow: 0 0 16px #ff7b7f, 0 4px 0 #c53a3f;
+  transform: scale(1.03);
+}
+
+.play-btn:hover::before {
+  animation: shine 1.2s ease-out forwards;
+}
+
+@keyframes shine {
   0% {
-    transform: rotate(0deg);
+    top: -100%;
+    left: -50%;
   }
   100% {
-    transform: rotate(360deg);
+    top: 100%;
+    left: 150%;
   }
-
 }
-.play-btn:hover {
-  box-shadow: 0 0 20px rgba(44, 106, 187, 0.8);
+
+/* Efecto clic */
+.play-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 0 #a93237;
 }
 
 .instance-select {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: -3;
-    top: -2;
-    color: var(--element-color);
-    font-size: 1rem;
-    height: calc(100% - 1px);
-    border: solid 3px var(--element-color);
-    text-align: center;
-    border-radius: 15px;
-    padding: 0 0.5rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -35px; /* Corregido: "-3" no es válido */
+  top: 0px;   /* Mejorado para visibilidad */
+  color: var(--element-color, #ffffff);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  height: calc(70% - 1px);
+  padding: 6px 12px;
+  border: 2px solid var(--element-color, #ffffff);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Hover suave con animación de luz */
+.instance-select:hover {
+  background-color: var(--element-color, #ffffff10);
+  box-shadow: 0 0 8px var(--element-color, #ffffff80);
+  transform: translateY(-1px);
+}
+
+/* Efecto al hacer clic */
+.instance-select:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 4px var(--element-color, #ffffff80);
 }
 
 .instance-select:before {
@@ -370,86 +255,263 @@
 
 .info-starting-game {
     display: none;
-    text-align: center;
 }
-
 .progress-bar {
-  appearance: none;
-  height: 8px; /* Ajusta la altura */
-  margin: 0.5rem 0;
+    appearance: none;
+    width: 100%;
+    height: 14px;
+    background: #111;
+    border-radius: 8px;
+    border: 1px solid var(--element-color);
+    box-shadow: 0 0 4px rgba(0, 255, 170, 0.3);
+    overflow: hidden;
 }
 
+/* Chrome / WebKit */
 .progress-bar::-webkit-progress-bar {
-  background-color: #f0f0f0; /* Gris muy claro */
-  border: none; /* Elimina el borde */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Sombra sutil */
+    background-color: #111;
+    border-radius: 8px;
 }
 
 .progress-bar::-webkit-progress-value {
-  background-color: #fff; /* Blanco */
-  border-radius: 10px; /* Bordes redondeados */
+    background: linear-gradient(90deg, #00ffaa, #0088ff);
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffaa80;
+    transition: width 0.2s ease;
+}
+
+/* Firefox */
+.progress-bar::-moz-progress-bar {
+    background: linear-gradient(90deg, #00ffaa, #0088ff);
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffaa80;
 }
 
 .settings-btn {
-    width: 3rem;
-    height: 3rem;
-    font-size: 3rem;
-    color: var(--element-color);
-    margin: 0 1.5rem 10px 1.5rem; 
-}
-
-.instance-popup {
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    background: #000000b3;
-    z-index: 10;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.instances-tab {
-    position: relative;
-    background: var(--background);
-    border-radius: 10px;
-    padding: 1rem 3rem;
-}
-
-.close-popup {
-    position: absolute;
-    display: flex;
-    top: 10px;
-    right: 10px;
-    background: var(--shadow);
-    height: 30px;
-    width: 30px;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-.instances-tab p {
-    margin-top: 1.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     font-size: 2rem;
-}
-
-.instance-elements {
-    background: var(--background-element);
-    text-align: center;
-    border-radius: 10px;
-    margin: 0.5rem 0;
-    font-size: 1.5rem;
+    color: var(--element-color);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    margin: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
     cursor: pointer;
 }
 
-.instance-elements:hover {
-    background: var(--element-color);
+.settings-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+/* Variables de colores */
+/* Variables de color para personalización rápida */
+:root {
+  --background-overlay: rgba(10, 10, 15, 0.85);
+  --sidebar-bg: rgba(24, 26, 29, 0.7);
+  --panel-bg: rgba(31, 33, 37, 0.5);
+  --highlight-color: #00c9ff;
+  --highlight-hover: #00bcd4;
+  --text-color: #f5f5f5;
+  --border-color: #2d2f33;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --transition: 0.4s ease;
+  --blur: 10px;
 }
 
-.active-instance {
-    background: var(--element-color);
+/* Fondo de popup con animación */
+.instance-popup {
+  position: fixed;
+  inset: 0;
+  background: var(--background-overlay);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.6s ease forwards;
 }
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Panel lateral con glassmorphism */
+.instances-tab {
+  background: var(--sidebar-bg);
+  width: 320px;
+  height: 100%;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--border-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  box-sizing: border-box;
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: 5px 0 20px var(--shadow);
+  animation: slideIn 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+  0% { transform: translateX(-100px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Título */
+.instances-tab p {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--highlight-color);
+}
+
+/* Botón de cierre circular */
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: -50px;
+  width: 40px;
+  height: 40px;
+  background: var(--border-color);
+  border-radius: 50%;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 22px;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.close-popup:hover {
+  background: var(--highlight-hover);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Lista de instancias */
+.instances-List {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Scrollbar personalizada */
+.instances-List::-webkit-scrollbar {
+  width: 6px;
+}
+.instances-List::-webkit-scrollbar-thumb {
+  background: var(--highlight-color);
+  border-radius: 5px;
+}
+.instances-List::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Botón de instancia con animación */
+.instance-elements {
+  background: var(--panel-bg);
+  padding: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.4px;
+  color: var(--text-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.instance-elements:hover {
+  background: var(--highlight-hover);
+  transform: translateX(10px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 188, 212, 0.6);
+}
+
+.instance-elements:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Instancia activa (seleccionada) */
+.active-instance {
+  background: var(--highlight-color);
+  color: #ffffff;
+  pointer-events: none;
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 15px rgba(0, 201, 255, 0.7), inset 0 0 10px rgba(0, 201, 255, 0.5);
+}
+.sidebar-image {
+  width: 80%;
+  height: auto;
+    margin-top: 20px;    /* mueve hacia abajo */
+  margin-left: 135px;   /* mueve hacia la derecha */
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+  .background-video video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .content video {
+    width: 100%;
+    display: block;
+  }
+  .content:before {
+    content: '';
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%), no-repeat center center scroll;
+  }
+  #mute {
+    cursor:pointer;
+    padding: 10px 20px;
+    background:#000;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+  }
+

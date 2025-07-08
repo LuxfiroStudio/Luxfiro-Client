@@ -1,5 +1,5 @@
 /**
- * @author Darken
+ * @author Luuxis
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
  */
 // import panel
@@ -264,3 +264,149 @@ class Launcher {
 }
 
 new Launcher().init();
+const INSTANCE_API = "http://102.129.137.163:5003/main/files/php/instances.php";
+let instancias = {};
+let instanciaSeleccionada = null;
+
+async function cargarInstancias() {
+  const selector = document.getElementById("instance-select");
+  const contenedor = document.getElementById("background-container");
+
+  try {
+    const res = await fetch(INSTANCE_API);
+    instancias = await res.json();
+
+    for (const nombre in instancias) {
+      const option = document.createElement("option");
+      option.value = nombre;
+      option.textContent = nombre;
+      selector.appendChild(option);
+    }
+
+    selector.addEventListener("change", () => {
+      instanciaSeleccionada = instancias[selector.value];
+      cambiarFondo(instanciaSeleccionada.background_url);
+    });
+
+    // Selección inicial
+    selector.dispatchEvent(new Event("change"));
+  } catch (err) {
+    console.error("Error al cargar instancias:", err);
+  }
+}
+
+function cambiarFondo(url) {
+  const contenedor = document.getElementById("background-container");
+
+  if (url.endsWith(".mp4")) {
+    contenedor.innerHTML = `
+      <video autoplay muted loop playsinline style="position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;">
+        <source src="${url}" type="video/mp4">
+      </video>
+      <div class="overlay">
+        <select id="instance-select"></select>
+        <button id="launch-button">Jugar</button>
+      </div>
+    `;
+  } else {
+    contenedor.style.background = `url('${url}') center/cover no-repeat`;
+  }
+}
+
+// Lanza el juego usando la instancia seleccionada
+document.getElementById("launch-button").addEventListener("click", () => {
+  if (!instanciaSeleccionada) {
+    alert("Selecciona una instancia");
+    return;
+  }
+
+  const instanceOptions = {
+    name: instanciaSeleccionada.status.nameServer,
+    gameDirectory: `./.minecraft/${instanciaSeleccionada.status.nameServer}`,
+    minecraftVersion: instanciaSeleccionada.loadder.minecraft_version,
+    loader: {
+      type: instanciaSeleccionada.loadder.loadder_type,
+      version: instanciaSeleccionada.loadder.loadder_version
+    },
+    javaPath: "", // ruta al Java si aplica
+    memory: {
+      min: 2048,
+      max: 4096
+    }
+  };
+
+  // Aquí se llama la función de lanzamiento real del launcher
+  require('../utils/Launcher').launch(instanceOptions);
+});
+
+window.addEventListener("DOMContentLoaded", cargarInstancias);
+fetch('http://102.129.137.163:5003/main/files/php/instances.php')
+  .then(response => response.json())
+  .then(data => {
+    // Aquí data es un array o un objeto con info de instancias
+    const listContainer = document.querySelector('.instances-List');
+    listContainer.innerHTML = ''; // Limpio contenido
+
+    data.forEach(instance => {
+      const btn = document.createElement('button');
+      btn.classList.add('instance-elements');
+      btn.textContent = instance.name; // Cambia según estructura real
+      btn.onclick = () => {
+        console.log('Seleccionada instancia:', instance);
+        // Aquí pon tu lógica para seleccionar instancia
+      };
+      listContainer.appendChild(btn);
+    });
+  })
+  .catch(error => console.error('Error cargando instancias:', error));
+document.addEventListener('DOMContentLoaded', () => {
+    const instance = ConfigManager.getSelectedInstance();
+    const bgUrl = instance?.background_url;
+
+    if (!bgUrl) {
+        console.warn('No se encontró background_url en la instancia');
+        return;
+    }
+
+    const container = document.getElementById('video-background-container');
+    if (!container) {
+        console.error('No se encontró el contenedor de fondo');
+        return;
+    }
+
+    // Elimina contenido previo por si cambia
+    container.innerHTML = '';
+
+    // Si es video
+    if (bgUrl.endsWith('.mp4')) {
+        const video = document.createElement('video');
+        video.src = bgUrl;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+
+        video.style.position = 'fixed';
+        video.style.top = '0';
+        video.style.left = '0';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        video.style.zIndex = '-1';
+
+        container.appendChild(video);
+    }
+
+    // Si es imagen
+    else {
+        container.style.backgroundImage = `url(${bgUrl})`;
+        container.style.backgroundSize = 'cover';
+        container.style.backgroundPosition = 'center';
+        container.style.position = 'fixed';
+        container.style.top = '0';
+        container.style.left = '0';
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.zIndex = '-1';
+    }
+});
