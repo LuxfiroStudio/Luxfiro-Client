@@ -1,46 +1,85 @@
+<html>
+    <div id="background-container" style="position: relative; width: 100%; height: 100vh;">
+  <div class="overlay">
+    <h1>Selvania Launcher</h1>
+    <select id="instance-select"></select>
+    <button id="launch-button">Jugar</button>
+  </div>
+</div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+        <link rel="stylesheet" href="assets/css/index.css">
+    </head>
+    <body>
+        <div id="splash" style="display:none">
+            <img class="splash" src="assets/images/icon.png" />
+            <p class="splash-message"></p>
+            <p class="splash-author"><span class="author"></span></p>
+            <p class="message">Buscando actualización</p>
+            <progress value="0" max="0" class="progress"></progress>
+        </div>
+        <script src="assets/js/index.js" type="module"></script>
+    </body>
+</html>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Selvania Launcher</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/launcher.css">
+    <title>Selvania Launcher - Instancias + Slider</title>
+    <link rel="stylesheet" href="./assets/css/launcher.css">
 </head>
 <body>
 
-    <!-- 🌟 Splash Screen -->
-    <div id="splash" style="display: none;">
-        <img class="splash" src="assets/images/icon.png" />
-        <p class="splash-message"></p>
-        <p class="splash-author"><span class="author"></span></p>
-        <p class="message">Buscando actualización</p>
-        <progress value="0" max="0" class="progress"></progress>
-    </div>
+    <h1>Selvania Launcher</h1>
 
-    <!-- 🎮 Launcher Principal -->
-    <div id="background-container" style="position: relative; width: 100%; height: 100vh;">
-        <div class="overlay">
-            <h1>Selvania Launcher</h1>
-
-            <!-- Instancia -->
-            <select id="instance-select"></select>
-            <button id="launch-button">Jugar</button>
-
-            <!-- Slider de RAM -->
-            <section>
-                <h2>Ajuste de RAM</h2>
-                <div id="slider" class="slider" min="0" max="16" step="1">
-                    <div class="slider-line"><span></span></div>
-                    <div class="slider-touch-left"></div>
-                    <div class="slider-touch-right"></div>
-                </div>
-            </section>
+    <!-- ✅ Slider de rango (RAM, etc.) -->
+    <section>
+        <h2>Ajuste de Rango (Ejemplo de RAM)</h2>
+        <div id="slider" class="slider" min="0" max="16" step="1">
+            <div class="slider-line"><span></span></div>
+            <div class="slider-touch-left"></div>
+            <div class="slider-touch-right"></div>
         </div>
-    </div>
+    </section>
 
-    <!-- 📦 Popup de Selección de Instancia -->
-    <div class="instance-popup" id="popupInstances" style="display: none;">
+    <!-- ✅ Instancias desde WebHost -->
+    <section>
+        <h2>Instancias Disponibles</h2>
+        <div class="instances"></div>
+    </section>
+
+    <script type="module">
+        import Slider, { loadInstances } from './slider.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = new Slider('#slider');
+            slider.on('change', (min, max) => {
+                console.log(`Rango seleccionado: ${min} GB - ${max} GB`);
+            });
+
+            loadInstances();
+        });
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selvania Launcher - Selector de Instancias</title>
+    <link rel="stylesheet" href="./assets/css/launcher.css">
+</head>
+<body>
+
+    <h1>Selvania Launcher</h1>
+
+    <!-- Botón para abrir el popup -->
+    <button onclick="openPopup()">Abrir Selector de Instancias</button>
+
+    <!-- Popup de Instancias -->
+    <div class="instance-popup" id="popupInstances">
         <div class="instances-tab">
             <div class="close-popup icon-close" onclick="closePopup()"></div>
             <p>Elige tu instancia</p>
@@ -48,29 +87,6 @@
         </div>
     </div>
 
-    <!-- 📜 Scripts -->
-    <script src="assets/js/index.js" type="module"></script>
-    <script type="module">
-        import Slider, { loadInstances } from './assets/js/slider.js';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const slider = new Slider('#slider');
-            slider.on('change', (min, max) => {
-                console.log(`RAM seleccionada: ${min} GB - ${max} GB`);
-            });
-
-            loadInstances();
-        });
-
-        // Funciones de popup
-        window.openPopup = function () {
-            document.getElementById("popupInstances").style.display = "block";
-        }
-
-        window.closePopup = function () {
-            document.getElementById("popupInstances").style.display = "none";
-        }
-    </script>
-
+    <script type="module" src="./assets/js/launcher.js"></script>
 </body>
 </html>
